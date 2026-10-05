@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>For Dr. Ji — A Little Birthday Surprise</title>
+<meta name="description" content="A little birthday surprise made especially for Dr. Ji.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#fff8f1;--pink:#e8a9b3;--deep:#4b2730;--gold:#c79a5b;--ink:#2f2025;--muted:#806b70}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:var(--cream);color:var(--ink);font-family:"DM Sans",sans-serif}body{overflow:hidden}button{font:inherit;cursor:pointer}
+#stars{position:fixed;inset:0;pointer-events:none;background:radial-gradient(circle at 20% 20%,rgba(232,169,179,.22),transparent 20%),radial-gradient(circle at 80% 75%,rgba(199,154,91,.14),transparent 25%)}
+#stars:before{content:"";position:absolute;inset:0;background-image:radial-gradient(circle,rgba(199,154,91,.45) 1px,transparent 1.5px);background-size:90px 90px;opacity:.3;animation:drift 18s linear infinite}
+@keyframes drift{to{transform:translate(25px,-30px)}}.experience{position:relative;z-index:1;height:100svh}
+.scene{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px;opacity:0;visibility:hidden;transform:translateY(22px) scale(.98);transition:.65s ease}
+.scene.active{opacity:1;visibility:visible;transform:none}.tiny{text-transform:uppercase;letter-spacing:.2em;font-size:10px;color:var(--muted);margin:0 0 25px}
+h1,h2{font-family:"Cormorant Garamond",serif;font-weight:600;line-height:.95;letter-spacing:-.03em}h1{font-size:clamp(65px,15vw,120px);margin:0 0 20px}h2{font-size:clamp(52px,12vw,92px);margin:0 0 28px}h1 em,h2 em{font-style:italic;color:var(--deep)}
+.subtitle{font-size:16px;color:var(--muted);max-width:430px;line-height:1.7;margin:0 0 30px}.primary,.secondary,.ghost{border-radius:999px;padding:14px 23px;border:1px solid transparent;transition:.25s ease;margin:7px}.primary{background:var(--deep);color:#fff8f1;box-shadow:0 12px 30px rgba(75,39,48,.18)}.primary:hover,.secondary:hover{transform:translateY(-2px)}.secondary{background:var(--gold);color:white}.ghost{background:rgba(255,255,255,.45);color:var(--deep);border-color:rgba(75,39,48,.25)}.hidden{display:none!important}
+.choices{display:flex;justify-content:center;flex-wrap:wrap}.question{animation:pop .5s ease;margin-top:15px}.question>p:first-child{font-family:"Cormorant Garamond",serif;font-size:42px;margin:0 0 10px}@keyframes pop{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:none}}
+.birthday{font-size:clamp(70px,16vw,150px);margin:0}.name{font-family:"Cormorant Garamond",serif;font-size:clamp(38px,8vw,65px);letter-spacing:.14em;color:var(--gold);margin:12px 0 15px}
+.confetti{position:absolute;inset:0;pointer-events:none;overflow:hidden}.confetti i{position:absolute;animation:fall 3s linear forwards}@keyframes fall{from{transform:translateY(-20px) rotate(0);opacity:1}to{transform:translateY(110vh) rotate(720deg);opacity:0}}
+.cake-wrap{position:relative;width:230px;height:190px;margin:10px 0 20px}.plate{position:absolute;width:230px;height:18px;border-radius:50%;background:#d8b9a9;bottom:0}.cake-body{position:absolute;left:35px;bottom:16px;width:160px;height:75px;border-radius:18px 18px 24px 24px;background:#f0b9bd}.cake-top{position:absolute;left:35px;bottom:72px;width:160px;height:45px;border-radius:50%;background:#fff2e7;border:3px solid #e6a8ae}.cake-body i{position:absolute;width:24px;height:28px;background:#fff2e7;border-radius:0 0 14px 14px;top:-3px}.cake-body i:nth-child(1){left:20px}.cake-body i:nth-child(2){left:68px}.cake-body i:nth-child(3){right:20px}
+.candles{position:absolute;bottom:106px;left:63px;width:105px;display:flex;justify-content:space-between;z-index:3}.candles span{width:9px;height:37px;border-radius:5px;background:var(--gold)}.flame{position:absolute;bottom:140px;width:12px;height:19px;background:#ffbe55;border-radius:50% 50% 50% 10%;transform:rotate(45deg);z-index:4;animation:flicker .35s infinite alternate}.f1{left:62px}.f2{left:108px}.f3{right:62px}@keyframes flicker{to{transform:rotate(45deg) scale(.85);opacity:.75}}.blown .flame{opacity:0;transform:translateY(-10px) scale(.2);transition:.5s}
+.envelope{position:relative;width:270px;height:175px;background:#e9b9be;border-radius:10px;box-shadow:0 20px 50px rgba(75,39,48,.15);margin-bottom:28px;transition:.7s}.flap{position:absolute;inset:0;background:#f4cdd0;clip-path:polygon(0 0,50% 58%,100% 0);transform-origin:top;transition:.8s;z-index:3}.seal{position:absolute;z-index:4;left:50%;top:45%;transform:translate(-50%,-50%);width:36px;height:36px;border-radius:50%;background:var(--deep);color:white;display:grid;place-items:center}.paper{position:absolute;inset:20px;display:grid;place-items:center;font-family:"Cormorant Garamond",serif;font-size:25px;color:var(--deep);background:#fffaf5}.envelope.open .flap{transform:rotateX(180deg)}.envelope.open{transform:translateY(30px)}
+.letter{width:min(92vw,560px);max-height:54vh;overflow:auto;text-align:left;background:#fffaf5;border:1px solid #eadbd2;border-radius:8px;padding:30px 28px;box-shadow:0 20px 70px rgba(75,39,48,.15);font-family:"Cormorant Garamond",serif;font-size:21px;line-height:1.55;animation:pop .8s ease}.letter .date{font-family:"DM Sans",sans-serif;text-transform:uppercase;letter-spacing:.15em;font-size:10px;color:var(--muted)}.special{text-align:center;font-size:31px;color:var(--deep);font-style:italic}.signature{text-align:right;margin-top:30px}
+.wish-card{width:min(90vw,530px);padding:34px 30px;background:rgba(255,255,255,.65);border:1px solid rgba(199,154,91,.35);border-radius:20px;box-shadow:0 20px 60px rgba(75,39,48,.08);font-family:"Cormorant Garamond",serif;font-size:27px;line-height:1.35}.wish-card span{color:var(--gold)}
+.night{background:radial-gradient(circle at 50% 28%,#6d4553 0,#34242d 38%,#17131a 100%);color:#fff5ef}.night .tiny,.night .final-message{color:#ead9d6}.moon{position:absolute;width:120px;height:120px;border-radius:50%;background:#fff1d5;top:13%;right:13%;box-shadow:0 0 70px rgba(255,241,213,.4)}.final-content{position:relative;z-index:2}.final-content h2{font-size:clamp(65px,14vw,125px)}.final-message{max-width:520px;font-size:16px;line-height:1.8;margin:0 auto 20px}.final-content .signature{font-family:"Cormorant Garamond",serif;font-size:25px;margin:15px 0 25px}
+@media(max-width:600px){.moon{width:75px;height:75px;top:9%;right:9%}.letter{font-size:19px}}
+</style>
+</head>
+<body>
+<div id="stars"></div>
+<main class="experience">
+
+<section class="scene active" id="scene1">
+<p class="tiny">A little something, just for you</p>
+<h1>Hey, <em>Dr. Ji...</em></h1>
+<p class="subtitle">Someone made a tiny world for you.</p>
+<button class="primary" data-next="2">Open your surprise ✨</button>
+</section>
+
+<section class="scene" id="scene2">
+<p class="tiny">Before we continue...</p>
+<h2>I have one tiny<br><em>question.</em></h2>
+<button class="primary" id="askBtn">Okay, ask me</button>
+<div class="question hidden" id="question">
+<p>Do you love me?</p>
+<div class="choices">
+<button class="primary" data-next="3">Of course 💗</button>
+<button class="ghost" id="thinkBtn">Let me think...</button>
+</div>
+<p class="answer hidden">Good answer. I had a feeling. ♡</p>
+</div>
+</section>
+
+<section class="scene" id="scene3">
+<div class="confetti" id="confetti"></div>
+<p class="tiny">Okay... now for the important part.</p>
+<h2 class="birthday">HAPPY<br><em>BIRTHDAY</em></h2>
+<div class="name">DR. JI</div>
+<p class="subtitle">5 October · Your special day</p>
+<button class="primary" data-next="4">There's more... →</button>
+</section>
+
+<section class="scene" id="scene4">
+<p class="tiny">Make a wish...</p>
+<div class="cake-wrap">
+<div class="flame f1"></div><div class="flame f2"></div><div class="flame f3"></div>
+<div class="candles"><span></span><span></span><span></span></div>
+<div class="cake-top"></div><div class="cake-body"><i></i><i></i><i></i></div>
+<div class="plate"></div><div class="smoke"></div>
+</div>
+<h2>Blow out the<br><em>candles.</em></h2>
+<p class="hint">Tap the button, then blow into your phone's microphone.</p>
+<button class="primary" id="blowBtn">Tap, then blow on the candles 🌬️</button>
+<button class="ghost hidden" id="skipBlow">Can't blow? Tap here</button>
+<button class="secondary hidden" id="afterBlow" data-next="5">Wish made. ✨ Continue</button>
+</section>
+
+<section class="scene" id="scene5">
+<div class="envelope" id="envelope">
+<div class="flap"></div><div class="seal">♡</div><div class="paper">A little letter<br>for you</div>
+</div>
+<h2>Something I<br><em>wanted to say...</em></h2>
+<button class="primary" id="openLetter">Open it 💌</button>
+<article class="letter hidden" id="letter">
+<p class="date">5 October</p>
+<p>Dear Dr. Ji,</p>
+<p>You are very cute and such a gentleman, and I really appreciate it.</p>
+<p>And of course...</p>
+<p class="special">Chalray chalray waal ♡</p>
+<p>I hope your birthday is as lovely, memorable and special as you are.</p>
+<p>Keep smiling, keep being you, and have the happiest birthday.</p>
+<p class="signature">With love,<br><em>Your future wife</em></p>
+</article>
+<button class="primary hidden" id="letterNext" data-next="6">Keep going →</button>
+</section>
+
+<section class="scene" id="scene6">
+<p class="tiny">One last little surprise</p>
+<h2>A birthday wish<br><em>for you.</em></h2>
+<div class="wish-card"><span>✦</span><p>May this year bring you more reasons to smile, more moments worth remembering, and everything your heart quietly wishes for.</p><span>✦</span></div>
+<button class="primary" data-next="7">One more thing... →</button>
+</section>
+
+<section class="scene night" id="scene7">
+<div class="moon"></div>
+<div class="final-content">
+<p class="tiny">And finally...</p>
+<h2>Happy Birthday,<br><em>Dr. Ji.</em></h2>
+<p class="final-message">Thank you for being you. I hope today reminds you just how special you are.</p>
+<p class="signature">— Your future wife ♡</p>
+<button class="ghost" id="replay">Replay the surprise ↻</button>
+</div>
+</section>
+</main>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const $ = (id) => document.getElementById(id);
+  const scenes = document.querySelectorAll(".scene");
+
+  // ---------- Scene navigation ----------
+  function showScene(n) {
+    scenes.forEach((s) => s.classList.remove("active"));
+    const target = $("scene" + n);
+    if (!target) return;
+    target.classList.add("active");
+    if (Number(n) === 3) launchConfetti();
+  }
+
+  document.querySelectorAll("[data-next]").forEach((btn) => {
+    btn.addEventListener("click", () => showScene(btn.dataset.next));
+  });
+
+  // ---------- Scene 2: the question ----------
+  const askBtn = $("askBtn");
+  const question = $("question");
+  const thinkBtn = $("thinkBtn");
+  const answer = question.querySelector(".answer");
+  let thinkTimer;
+
+  askBtn.addEventListener("click", () => {
+    askBtn.classList.add("hidden");
+    question.classList.remove("hidden");
+  });
+
+  thinkBtn.addEventListener("click", () => {
+    thinkBtn.classList.add("hidden");
+    answer.classList.remove("hidden");
+    thinkTimer = setTimeout(() => showScene(3), 1800);
+  });
+
+  // ---------- Scene 3: confetti ----------
+  function launchConfetti() {
+    const box = $("confetti");
+    box.innerHTML = "";
+    const colors = ["#e8a9b3", "#c79a5b", "#f4cdd0", "#4b2730", "#fff2e7"];
+    for (let i = 0; i < 70; i++) {
+      const piece = document.createElement("i");
+      piece.style.left = Math.random() * 100 + "%";
+      piece.style.width = 6 + Math.random() * 7 + "px";
+      piece.style.height = 8 + Math.random() * 10 + "px";
+      piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+      piece.style.animationDelay = Math.random() * 1.5 + "s";
+      piece.style.animationDuration = 2.5 + Math.random() * 2 + "s";
+      box.appendChild(piece);
+    }
+  }
+
+  // ---------- Scene 4: blow the candles (real microphone) ----------
+  const cake = document.querySelector(".cake-wrap");
+  const blowBtn = $("blowBtn");
+  const skipBlow = $("skipBlow");
+  const afterBlow = $("afterBlow");
+  const hint = document.querySelector("#scene4 .hint");
+  const HINT_START = "Tap the button, then blow into your phone's microphone.";
+  const BLOW_LABEL = "Tap, then blow on the candles 🌬️";
+
+  let listening = false;
+  let stream = null;
+  let audioCtx = null;
+  let rafId = null;
+
+  function stopListening() {
+    listening = false;
+    if (rafId) cancelAnimationFrame(rafId);
+    rafId = null;
+    if (stream) {
+      stream.getTracks().forEach((t) => t.stop());
+      stream = null;
+    }
+    if (audioCtx) {
+      audioCtx.close().catch(() => {});
+      audioCtx = null;
+    }
+  }
+
+  function blowOut() {
+    stopListening();
+    cake.classList.add("blown");
+    blowBtn.classList.add("hidden");
+    skipBlow.classList.add("hidden");
+    hint.textContent = "Wow, that was a big breath! Your wish is on its way. ✨";
+    afterBlow.classList.remove("hidden");
+  }
+
+  async function startListening() {
+    if (listening) return;
+
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      hint.textContent = "This browser can't use the microphone, so tap the button below.";
+      skipBlow.classList.remove("hidden");
+      return;
+    }
+
+    try {
+      stream = await navigator.mediaDevices.getUserMedia({
+        audio: { echoCancellation: false, noiseSuppression: false, autoGainControl: false }
+      });
+    } catch (err) {
+      hint.textContent = "The microphone is off, so just tap the button below to blow them out.";
+      skipBlow.classList.remove("hidden");
+      return;
+    }
+
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    if (audioCtx.resume) await audioCtx.resume();
+    const source = audioCtx.createMediaStreamSource(stream);
+    const analyser = audioCtx.createAnalyser();
+    analyser.fftSize = 1024;
+    source.connect(analyser);
+    const data = new Uint8Array(analyser.fftSize);
+
+    listening = true;
+    blowBtn.textContent = "Listening... blow now 🌬️";
+    blowBtn.disabled = true;
+    hint.textContent = "Take a deep breath and blow towards the microphone.";
+    skipBlow.classList.remove("hidden");
+
+    let frame = 0;
+    let baseline = 0;
+    let loud = 0;
+
+    function listen() {
+      if (!listening) return;
+      analyser.getByteTimeDomainData(data);
+      let sum = 0;
+      for (let i = 0; i < data.length; i++) {
+        const v = (data[i] - 128) / 128;
+        sum += v * v;
+      }
+      const rms = Math.sqrt(sum / data.length);
+
+      frame++;
+      if (frame <= 20) {
+        baseline += rms / 20; // learn the room's background noise first
+      } else {
+        const threshold = Math.max(0.1, baseline * 3);
+        loud = rms > threshold ? loud + 1 : Math.max(0, loud - 1);
+        if (loud >= 8) {
+          blowOut();
+          return;
+        }
+      }
+      rafId = requestAnimationFrame(listen);
+    }
+    listen();
+  }
+
+  blowBtn.addEventListener("click", startListening);
+  skipBlow.addEventListener("click", blowOut);
+
+  // ---------- Scene 5: letter ----------
+  const envelope = $("envelope");
+  const openLetter = $("openLetter");
+  const letter = $("letter");
+  const letterNext = $("letterNext");
+
+  openLetter.addEventListener("click", () => {
+    envelope.classList.add("open");
+    openLetter.classList.add("hidden");
+    letter.classList.remove("hidden");
+    letterNext.classList.remove("hidden");
+  });
+
+  // ---------- Scene 7: replay ----------
+  $("replay").addEventListener("click", () => {
+    clearTimeout(thinkTimer);
+    stopListening();
+    // scene 2
+    askBtn.classList.remove("hidden");
+    question.classList.add("hidden");
+    thinkBtn.classList.remove("hidden");
+    answer.classList.add("hidden");
+    // scene 4
+    cake.classList.remove("blown");
+    blowBtn.classList.remove("hidden");
+    blowBtn.disabled = false;
+    blowBtn.textContent = BLOW_LABEL;
+    skipBlow.classList.add("hidden");
+    afterBlow.classList.add("hidden");
+    hint.textContent = HINT_START;
+    // scene 5
+    envelope.classList.remove("open");
+    openLetter.classList.remove("hidden");
+    letter.classList.add("hidden");
+    letterNext.classList.add("hidden");
+    showScene(1);
+  });
+});
+
+</script>
+</body>
+</html>
